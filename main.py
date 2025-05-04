@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
-import keyboard # type: ignore
+import keyboard 
 
 def elimnar_2_primeros_items():
     for i in range(0,2):
