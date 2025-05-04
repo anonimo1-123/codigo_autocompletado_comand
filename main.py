@@ -1,12 +1,32 @@
 #!/usr/bin/env python3
 
 import subprocess
-
+import keyboard # type: ignore
 
 def elimnar_2_primeros_items():
     for i in range(0,2):
         listar.pop(0)
 
+
+def detectar_input():
+    entrada = ""
+    print("Escribe algo sin presionar Enter:")
+    while True:
+        tecla = keyboard.read_event().name  # Captura la tecla presionada
+        if tecla == "esc":  # Para terminar con la tecla ESC
+            break
+        if tecla == "space":
+            tecla = " "
+        entrada += tecla
+        mostrar_comandos(entrada)
+
+
+def mostrar_comandos(entrada):
+    inicial = entrada
+    indice = next(i for i, dic in enumerate(lista2) if dic["id"] == inicial)
+
+    for i in lista2[indice]["arreglo"]:
+        print(f"*.{i}")
 
 #variables necesarias
 resultado = subprocess.run(["ls" , "/bin/"], capture_output=True, text=True)
@@ -38,6 +58,11 @@ for a in listar:
             indice = next(i for i, dic in enumerate(lista2) if dic["id"] == inicial)
             lista2[indice]["arreglo"].append(a)
                 
+
+detectar_input()
+
+
+
 
 
 
