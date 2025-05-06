@@ -4,11 +4,14 @@ import subprocess
 import keyboard
 
 def elimnar_2_primeros_items():
-    for i in range(0,2):
+    cont = 0
+    while cont < 2:
         listar.pop(0)
+        cont+=1
 
 
 def detectar_input():
+    contador =0
     entrada = ""
     print("Escribe algo sin presionar Enter:")
     while True:
@@ -18,17 +21,49 @@ def detectar_input():
         if tecla == "space":
             tecla = " "
         entrada += tecla
-        mostrar_comandos(entrada)
+        contador += 1
+        mostrar_comandos(entrada,contador)
+
+       
+        
 
 
-def mostrar_comandos(entrada):
-    inicial = entrada
-    indice = next(i for i, dic in enumerate(lista2) if dic["id"] == inicial)
+def mostrar_comandos(entrada,contador):
+    indice = 0
+    if  len(entrada) == 1:
+        indice = next(i for i, dic in enumerate(lista2) if dic["id"] == entrada)
 
     for i in lista2[indice]["arreglo"]:
-        print(f"*.{i}")
+        if i[0:contador] == entrada:
+            print(f"*.{i}")
+        
+
+
     
 
+    
+def ordenar_por_letra_arreglo():
+    for a in listar:
+        inicial = a[0]
+        if len(lista2) == 0:
+            cont=[]
+            cont.append(a)
+            lista2.append({"id":inicial,"arreglo":cont})
+            
+        else:
+            comprobante = False
+            for i in range(0,len(lista2)):
+                if  inicial == lista2[i]["id"]:
+                    comprobante = True
+
+            if comprobante == False:
+                cont=[]
+                lista2.append({"id":inicial,"arreglo":cont})
+                cont.append(a)
+            else:
+                indice = next(i for i, dic in enumerate(lista2) if dic["id"] == inicial)
+                lista2[indice]["arreglo"].append(a)
+                    
 
 #variables necesarias
 resultado = subprocess.run(["ls" , "/bin/"], capture_output=True, text=True)
@@ -38,29 +73,7 @@ lista2 = []
 
 
 elimnar_2_primeros_items()
-
-for a in listar:
-    inicial = a[0]
-    if len(lista2) == 0:
-        cont=[]
-        cont.append(a)
-        lista2.append({"id":inicial,"arreglo":cont})
-        
-    else:
-        comprobante = False
-        for i in range(0,len(lista2)):
-            if  inicial == lista2[i]["id"]:
-                comprobante = True
-
-        if comprobante == False:
-            cont=[]
-            lista2.append({"id":inicial,"arreglo":cont})
-            cont.append(a)
-        else:
-            indice = next(i for i, dic in enumerate(lista2) if dic["id"] == inicial)
-            lista2[indice]["arreglo"].append(a)
-                
-
+ordenar_por_letra_arreglo()
 detectar_input()
 
 
