@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
-import keyboard 
+import keyboard
 
 def elimnar_2_primeros_items():
     for i in range(0,2):
@@ -27,6 +27,8 @@ def mostrar_comandos(entrada):
 
     for i in lista2[indice]["arreglo"]:
         print(f"*.{i}")
+    
+
 
 #variables necesarias
 resultado = subprocess.run(["ls" , "/bin/"], capture_output=True, text=True)
