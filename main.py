@@ -2,6 +2,7 @@
 
 import subprocess
 import keyboard
+import sys
 
 def elimnar_2_primeros_items():
     cont = 0
@@ -11,18 +12,31 @@ def elimnar_2_primeros_items():
 
 
 def detectar_input():
-    contador =0
+    contador = 0
     entrada = ""
-    print("Escribe algo sin presionar Enter:")
+    texto = "Ingrese el comando: "
+
+    sys.stdout.write(texto)  # Imprime el mensaje inicial
+    sys.stdout.flush()
     while True:
-        tecla = keyboard.read_event().name  # Captura la tecla presionada
-        if tecla == "esc":  # Para terminar con la tecla ESC
+        
+        
+        evento = keyboard.read_event()  
+
+        if str(evento.name) == "esc":  
             break
-        if tecla == "space":
-            tecla = " "
-        entrada += tecla
-        contador += 1
-        mostrar_comandos(entrada,contador)
+
+        if evento.event_type == keyboard.KEY_UP:  
+            entrada += str(evento.name)  
+            contador += 1
+            sys.stdout.write("\r" + texto + entrada)  
+            sys.stdout.flush()
+            mostrar_comandos(entrada, contador)
+        
+        
+        
+        
+      
 
        
         
@@ -32,10 +46,17 @@ def mostrar_comandos(entrada,contador):
     indice = 0
     if  len(entrada) == 1:
         indice = next(i for i, dic in enumerate(lista2) if dic["id"] == entrada)
-
+    cont = 1
+    print("\n")
     for i in lista2[indice]["arreglo"]:
         if i[0:contador] == entrada:
-            print(f"*.{i}")
+        
+            print(f"{cont}.{i}")
+            cont += 1
+    
+
+            
+            
         
 
 
