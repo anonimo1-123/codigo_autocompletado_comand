@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
-
 import subprocess
 import keyboard
 import sys
 
-def elimnar_2_primeros_items():
-    cont = 0
-    while cont < 2:
-        listar.pop(0)
-        cont+=1
+#esta funcion
 
 
 def detectar_input():
@@ -16,7 +11,7 @@ def detectar_input():
     entrada = ""
     texto = "Ingrese el comando: "
 
-    sys.stdout.write(texto)  # Imprime el mensaje inicial
+    sys.stdout.write(texto) 
     sys.stdout.flush()
     while True:
         
@@ -33,15 +28,7 @@ def detectar_input():
             sys.stdout.flush()
             mostrar_comandos(entrada, contador)
         
-        
-        
-        
-      
-
-       
-        
-
-
+  
 def mostrar_comandos(entrada,contador):
     indice = 0
     if  len(entrada) == 1:
@@ -53,15 +40,7 @@ def mostrar_comandos(entrada,contador):
         
             print(f"{cont}.{i}")
             cont += 1
-    
-
-            
-            
-        
-
-
-    
-
+         
     
 def ordenar_por_letra_arreglo():
     for a in listar:
@@ -89,40 +68,13 @@ def ordenar_por_letra_arreglo():
 #variables necesarias
 resultado = subprocess.run(["ls" , "/bin/"], capture_output=True, text=True)
 listar = list(resultado.stdout.split())
+del listar[:2]
 lista2 = []
 
 
+def main(): 
+    ordenar_por_letra_arreglo()
+    detectar_input()
 
-elimnar_2_primeros_items()
-ordenar_por_letra_arreglo()
-detectar_input()
-
-
-
-
-
-
-
-
-        
-            
-
-"""
-for i in lista2:
-    print("-"*20)
-    print(f"COMANDOS CON {i["id"].upper()}")
-    for e in i["arreglo"]:
-        print(f"*.{e}")"""
-        
-
-
-
-
-            
-    
-
-                
-            
-
-        
-
+if __name__ == "__main__":
+    main()
